@@ -1,8 +1,6 @@
 import collections
 import random
 
-from termcolor import colored
-
 class secretWord:
     def __init__(self, word_filename='word_list.txt', allowed_guesses_filename='allowed_guesses.txt'):
         with open(word_filename, 'r') as word_file:
