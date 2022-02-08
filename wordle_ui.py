@@ -27,7 +27,7 @@ class ui:
     def updateLetterBank(self, ch, color):
         if (self.letterbank[ch] == 'white' and (color == 'yellow' or color == 'green'))  or (self.letterbank[ch] == 'yellow' and color == 'green'):
             self.letterbank[ch] = color
-        elif color == 'white':
+        elif color == 'white' and self.letterbank[ch] == 'white':
             self.letterbank[ch] = 'grey'
 
     def printLetterBank(self):
