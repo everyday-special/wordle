@@ -1,6 +1,6 @@
 # Wordle
 
-# Wordle in the terminal, written in python
+## Wordle in the terminal, written in python
 
 Simply run `bash run.sh` in your terminal to run. This creates a virtual environment, installs the dependencies, runs wordle.py and then destroys the virtual environment.
 
