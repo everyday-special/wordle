@@ -2,10 +2,13 @@ import collections
 import random
 
 class secretWord:
-    def __init__(self, word_filename='word_list.txt', allowed_guesses_filename='allowed_guesses.txt'):
+    def __init__(self, set_word=None, word_filename='word_list.txt', allowed_guesses_filename='allowed_guesses.txt'):
         with open(word_filename, 'r') as word_file:
             words =  word_file.readlines()
-        self.word = random.choice(words).rstrip()
+        if set_word is not None:
+            self.word = set_word
+        else:
+            self.word = random.choice(words).rstrip()
         with open(allowed_guesses_filename, 'r') as allowed_guesses:
             self.allowed = set(allowed_guesses.readlines())
 

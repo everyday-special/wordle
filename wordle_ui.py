@@ -9,11 +9,12 @@ def clear():
 
 
 class ui:
-    def __init__(self, allowed_words_file='allowed_guesses.txt'):
+    def __init__(self, allowed_words_file='allowed_guesses.txt', debug=False):
         with open(allowed_words_file, 'r') as file:
             self.allowed_words = [line.rstrip() for line in file]
         self.letterbank = {}
         self.scores = []
+        self.debug = debug
 
     def printGuesses(self):
         clear()
@@ -35,6 +36,21 @@ class ui:
             print(colored(letter, self.letterbank[letter]), end=' ')
         print()
 
+    def getWordDebug(self):
+        word = input('Please enter a five letter secret word: ')
+        while len(word) != 5:
+            word = input('Please enter a five letter secret word: ')
+        clear()
+        return word
+
+    def getGuessDebug(self):
+        guess = input('Please enter a five letter guess: ').lower()
+        while len(guess) != 5:
+            clear()
+            self.printGuesses()
+            guess = input('Please enter a five letter guess: ')
+        return guess
+
     def getGuess(self):
         guess = input('Enter your guess: ').lower()
         while guess not in self.allowed_words:
@@ -52,7 +68,11 @@ class ui:
         return response == 'y'
 
     def reset(self):
-        self.word = secretWord()
+        if not self.debug:
+            self.word = secretWord()
+        else:
+            debug_word = self.getWordDebug()
+            self.word = secretWord(set_word=debug_word)
         self.guesses = []
         for ch in ascii_lowercase:
             self.letterbank.update({ch: 'white'})
@@ -67,7 +87,10 @@ class ui:
         clear()
         win = False
         for i in range(1, 7):
-            guess = self.getGuess()
+            if self.debug:
+                guess = self.getGuessDebug()
+            else:
+                guess = self.getGuess()
             colors = self.word.checkGuess(guess)
             self.guesses.append((guess, colors))
             self.printGuesses()
